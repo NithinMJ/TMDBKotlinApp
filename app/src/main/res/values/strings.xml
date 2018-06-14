@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">TMDBKotlinApp</string>
+    <string name="tmdb">TMDB</string>
+    <string name="title_activity_movie_details">MovieDetails</string>
+    <string name="title_activity_loader_screen">LoaderScreen</string>
+</resources>
