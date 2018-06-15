@@ -13,7 +13,6 @@ import com.squareup.picasso.Picasso
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class MainAdapter(context: Context, movie: ArrayList<MovieList.MovieNames>?) : RecyclerView.Adapter<MainAdapter.CustomViewHolder>() {
@@ -24,7 +23,7 @@ class MainAdapter(context: Context, movie: ArrayList<MovieList.MovieNames>?) : R
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
 
-        var inflater = LayoutInflater.from(mContext).inflate(R.layout.movie_info, parent, false)
+        val inflater = LayoutInflater.from(mContext).inflate(R.layout.movie_info, parent, false)
 
         return CustomViewHolder(inflater)
 
@@ -39,6 +38,7 @@ class MainAdapter(context: Context, movie: ArrayList<MovieList.MovieNames>?) : R
                 .load(PathFiles.IMAGE_URL_POSTER + MovieData.poster_path)
                 .placeholder(R.drawable.loading)
                 .into(holder.img_View)
+
 
         holder.cardView.setOnClickListener({ v: View? ->
 

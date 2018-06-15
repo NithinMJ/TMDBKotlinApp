@@ -3,24 +3,26 @@
     package="com.example.nithinjohn.tmdbkotlinapp">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_launcher_icon"
         android:label="TheMovieDatabase (TMDB)"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
         </activity>
         <activity
             android:name=".MovieDetails"
-            android:label="@string/title_activity_movie_details"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoaderScreen"
-            android:label="@string/title_activity_loader_screen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

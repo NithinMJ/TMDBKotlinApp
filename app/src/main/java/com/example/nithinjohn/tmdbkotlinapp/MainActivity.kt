@@ -14,14 +14,12 @@ import retrofit2.Callback
 
 class MainActivity : AppCompatActivity() {
 
-    var pageNumber:Int=1
+    var pageNumber: Int = 1
     internal var lastPress: Long = 0
     var moviesinformation = ArrayList<MovieList.MovieNames>()
-    var previousTotal = 0
     var loading = true
     var visibleThreshold = 2
     var lastVisibleItem = 0
-    var visibleItemCount = 0
     var totalItemCount = 0
 
 
@@ -31,26 +29,27 @@ class MainActivity : AppCompatActivity() {
 
         getPopular()
 
-        fab.setOnClickListener{v: View? ->
+        fab.setOnClickListener { v: View? ->
             recyclerview_main.scrollToPosition(0)
+            fab.hide()
         }
 
         recyclerview_main.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                if(dy>0){
+                if (dy > 0) {
 
+                    fab.show()
                     totalItemCount = (recyclerview_main.layoutManager as LinearLayoutManager).itemCount
                     lastVisibleItem = (recyclerview_main.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
 
-                    if(totalItemCount<=(lastVisibleItem+visibleThreshold)){
+                    if (totalItemCount <= (lastVisibleItem + visibleThreshold)) {
                         pageNumber++
                         loadMore()
-//                    println("PAGE NUMBER : $pageNumber")
                     }
-                }
-                else if(dy<0){
+
+                } else if (dy < 0) {
                     println("NO MORE PAGES")
                 }
 
@@ -64,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val currentTime = System.currentTimeMillis()
         if (currentTime - lastPress > 5000) {
-            val backpressToast: Toast?  = Toast.makeText(baseContext, "Press back again to exit", Toast.LENGTH_LONG)
+            val backpressToast: Toast? = Toast.makeText(baseContext, "Press back again to exit", Toast.LENGTH_LONG)
             backpressToast?.show()
             lastPress = currentTime
 
@@ -79,31 +78,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getPopular() {
-            val api = InitRetrofit().getInitInstance()
-            val call = api.request_popular(PathFiles.API_KEY,pageNumber)
-            call.enqueue(object : Callback<MovieList> {
+        val api = InitRetrofit().getInitInstance()
+        val call = api.request_popular(PathFiles.API_KEY, pageNumber)
+        call.enqueue(object : Callback<MovieList> {
 
-                override fun onFailure(call: Call<MovieList>?, t: Throwable?) {
+            override fun onFailure(call: Call<MovieList>?, t: Throwable?) {
 
-                }
+            }
 
-                override fun onResponse(call: Call<MovieList>?, response: retrofit2.Response<MovieList>?) {
-                    if (response != null) {
-                        if (response.isSuccessful) {
-                            moviesinformation = response.body()?.data!!
-                            val adapter = MainAdapter(this@MainActivity, moviesinformation)
-                            recyclerview_main.adapter = adapter
-                            recyclerview_main.layoutManager = GridLayoutManager(this@MainActivity,2)
-                        }
+            override fun onResponse(call: Call<MovieList>?, response: retrofit2.Response<MovieList>?) {
+                if (response != null) {
+                    if (response.isSuccessful) {
+                        moviesinformation = response.body()?.data!!
+                        val adapter = MainAdapter(this@MainActivity, moviesinformation)
+                        recyclerview_main.adapter = adapter
+                        recyclerview_main.layoutManager = GridLayoutManager(this@MainActivity, 2)
                     }
                 }
+            }
 
-            })
+        })
     }
 
     private fun loadMore() {
         val api = InitRetrofit().getInitInstance()
-        val call = api.request_popular(PathFiles.API_KEY,pageNumber)
+        val call = api.request_popular(PathFiles.API_KEY, pageNumber)
         call.enqueue(object : Callback<MovieList> {
 
             override fun onFailure(call: Call<MovieList>?, t: Throwable?) {
@@ -115,8 +114,6 @@ class MainActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val d1 = response.body()?.data!!
                         moviesinformation.addAll(d1)
-                        val adapter = MainAdapter(this@MainActivity, moviesinformation)
-                        recyclerview_main.adapter = adapter
                         recyclerview_main.adapter.notifyDataSetChanged()
                     }
                 }

@@ -19,7 +19,7 @@ class MovieDetails : AppCompatActivity() {
         val movieRelease = intent.getStringExtra("movie_release")
         val movieOverview = intent.getStringExtra("movie_description")
         val moviePoster = intent.getStringExtra("movie_poster")
-        val movieRating=intent.getStringExtra("movie_rating")
+        val movieRating = intent.getStringExtra("movie_rating")
 
 
         title_detail.text = movieTitle
@@ -29,11 +29,9 @@ class MovieDetails : AppCompatActivity() {
         val mRelease = movieRelease
         val rel = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
         var date: Date? = null
-        try
-        {
+        try {
             date = rel.parse(mRelease)
-        }
-        catch (e: ParseException) {
+        } catch (e: ParseException) {
             e.printStackTrace()
         }
         val fmtOut = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
@@ -46,7 +44,6 @@ class MovieDetails : AppCompatActivity() {
 
         Picasso.get()
                 .load(PathFiles.IMAGE_URL_BACKDROP + movieBackdrop)
-                .placeholder(R.drawable.loading)
                 .into(img_detail)
 
         Picasso.get()

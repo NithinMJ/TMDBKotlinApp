@@ -29,13 +29,27 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                      <entry key="foregroundImage">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="scalingPercent" value="42" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                     </map>
                                   </option>
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="5a86a6" />
-                                      <entry key="foregroundAssetType" value="CLIP_ART" />
+                                      <entry key="backgroundColor" value="eeeeee" />
+                                      <entry key="backgroundLayerName" value="ic_launcher_background" />
+                                      <entry key="foregroundImage" value="C:\Users\nithin.john\StudioProjects\DingAndroidProjectJohnNithin\app\src\main\res\drawable\loading.png" />
+                                      <entry key="foregroundLayerName" value="app_launcher_icon" />
+                                      <entry key="outputName" value="launcher_icon_app" />
                                     </map>
                                   </option>
                                 </PersistentState>

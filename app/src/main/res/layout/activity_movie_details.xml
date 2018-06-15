@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -16,12 +17,12 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/img_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/img_detail"
-                android:paddingBottom="2dp"
                 android:adjustViewBounds="true"
-                android:contentDescription="@string/app_name" />
+                android:contentDescription="@string/app_name"
+                android:paddingBottom="2dp" />
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -30,16 +31,16 @@
             card_view:cardCornerRadius="5dp">
 
             <TextView
+                android:id="@+id/title_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
                 android:layout_gravity="center_vertical|center_horizontal"
+                android:paddingBottom="2dp"
                 android:textAlignment="center"
                 android:textAllCaps="true"
+                android:textColor="@android:color/black"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:id="@+id/title_detail"
-                android:paddingBottom="2dp"/>
+                android:textStyle="bold" />
 
         </android.support.v7.widget.CardView>
 
@@ -58,9 +59,9 @@
             card_view:cardCornerRadius="5dp">
 
             <ImageView
+                android:id="@+id/poster_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/poster_detail"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/app_name" />
         </android.support.v7.widget.CardView>
@@ -85,21 +86,21 @@
                 <TextView
                     android:id="@+id/release_detail"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginStart="5dp"
-                    android:textAlignment="center"
-                    android:drawableStart="@drawable/ic_movie_creation_black_24dp"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_movie_creation_black_24dp"
+                    android:drawableStart="@drawable/ic_movie_creation_black_24dp"
                     android:includeFontPadding="false"
-                    android:drawableLeft="@drawable/ic_movie_creation_black_24dp" />
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="1dp"
@@ -110,23 +111,23 @@
                 <TextView
                     android:id="@+id/rating_detail"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:textAllCaps="true"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginStart="5dp"
-                    android:textAlignment="center"
-                    android:drawableStart="@drawable/ic_thumb_up_black_24dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_thumb_up_black_24dp"
+                    android:drawableStart="@drawable/ic_thumb_up_black_24dp"
                     android:includeFontPadding="false"
-                    android:drawableLeft="@drawable/ic_thumb_up_black_24dp" />
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="1dp"
@@ -137,23 +138,23 @@
                 <TextView
                     android:id="@+id/language_detail"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:textAllCaps="true"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginStart="5dp"
-                    android:textAlignment="center"
-                    android:drawableStart="@drawable/ic_home_black_24dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_home_black_24dp"
+                    android:drawableStart="@drawable/ic_home_black_24dp"
                     android:includeFontPadding="false"
-                    android:drawableLeft="@drawable/ic_home_black_24dp" />
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -172,16 +173,16 @@
             card_view:cardCornerRadius="5dp">
 
             <TextView
+                android:id="@+id/overview_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/overview_detail"
-                android:padding="2dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="2dp"
                 android:layout_marginBottom="2dp"
-                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
-                android:layout_marginLeft="2dp" />
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:padding="2dp" />
 
         </android.support.v7.widget.CardView>
 
