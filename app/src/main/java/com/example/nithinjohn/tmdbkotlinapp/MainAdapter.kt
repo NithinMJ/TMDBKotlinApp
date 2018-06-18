@@ -35,12 +35,12 @@ class MainAdapter(context: Context, movie: ArrayList<MovieList.MovieNames>?) : R
         val MovieData: MovieList.MovieNames = mMovieNames!!.get(position)
 
         Picasso.get()
-                .load(PathFiles.IMAGE_URL_POSTER + MovieData.poster_path)
+                .load(PathFiles.IMAGE_URL_BACKDROP + MovieData.poster_path)
                 .placeholder(R.drawable.loading)
                 .into(holder.img_View)
 
 
-        holder.cardView.setOnClickListener({ v: View? ->
+        holder.cardView.setOnClickListener { v: View? ->
 
             val intent = Intent(mContext?.applicationContext, MovieDetails::class.java)
             intent.putExtra("movie_backdrop", MovieData.backdrop_path)
@@ -51,7 +51,7 @@ class MainAdapter(context: Context, movie: ArrayList<MovieList.MovieNames>?) : R
             intent.putExtra("movie_poster", MovieData.poster_path)
             intent.putExtra("movie_rating", MovieData.movie_rating)
             mContext!!.startActivity(intent)
-        })
+        }
 
 
         val release: String? = MovieData.release_date

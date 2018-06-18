@@ -47,7 +47,7 @@ class MovieDetails : AppCompatActivity() {
                 .into(img_detail)
 
         Picasso.get()
-                .load(PathFiles.IMAGE_URL_POSTER + moviePoster)
+                .load(PathFiles.IMAGE_URL_BACKDROP + moviePoster)
                 .placeholder(R.drawable.loading)
                 .into(poster_detail)
 
