@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
+import com.crashlytics.android.Crashlytics
+import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,7 +17,7 @@ import retrofit2.Callback
 class MainActivity : AppCompatActivity() {
 
     var pageNumber: Int = 1
-    internal var lastPress: Long = 0
+    private var lastPress: Long = 0
     var moviesinformation = ArrayList<MovieList.MovieNames>()
     var loading = true
     var visibleThreshold = 2
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Fabric.with(this, Crashlytics())
 
         getPopular()
 
