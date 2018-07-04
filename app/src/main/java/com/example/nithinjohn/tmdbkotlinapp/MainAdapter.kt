@@ -15,11 +15,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class MainAdapter(context: Context, movie: ArrayList<MovieList.MovieNames>?) : RecyclerView.Adapter<MainAdapter.CustomViewHolder>() {
-
+class MainAdapter(context: Context, movie: ArrayList<MovieList.MovieNames>?) : RecyclerView.Adapter<MainAdapter.CustomViewHolder>(),MovieDetailsContract.View{
 
     var mMovieNames: List<MovieList.MovieNames>? = movie
     var mContext: Context? = context
+    private val movieDetailsContract: MovieDetailsContract.Presenter = MovieDetailsPresenter()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
 
@@ -40,7 +40,7 @@ class MainAdapter(context: Context, movie: ArrayList<MovieList.MovieNames>?) : R
                 .into(holder.img_View)
 
 
-        holder.cardView.setOnClickListener { v: View? ->
+        holder.cardView.setOnClickListener {
 
             val intent = Intent(mContext?.applicationContext, MovieDetails::class.java)
             intent.putExtra("movie_backdrop", MovieData.backdrop_path)
@@ -54,20 +54,11 @@ class MainAdapter(context: Context, movie: ArrayList<MovieList.MovieNames>?) : R
         }
 
 
-        val release: String? = MovieData.release_date
-        val rel = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-        var date: Date? = null
-        try {
-            date = rel.parse(release)
-        } catch (e: ParseException) {
-            e.printStackTrace()
-        }
-        val fmtOut = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
-        val relDate = fmtOut.format(date)
+        movieDetailsContract.attachView(this)
+        holder.releaseDate.text = movieDetailsContract.loadDate(MovieData.release_date.toString())
 
 
         holder.movieTitle.text = MovieData.movieTitle
-        holder.releaseDate.text = relDate
         holder.movieRate.text = MovieData.movie_rating
 
     }

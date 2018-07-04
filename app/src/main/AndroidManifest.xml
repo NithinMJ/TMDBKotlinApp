@@ -23,7 +23,7 @@
             android:name=".MovieDetails"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".LoaderScreen"
+            android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

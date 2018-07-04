@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_movie_details.*
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.*
 
-class MovieDetails : AppCompatActivity() {
+class MovieDetails : AppCompatActivity(), MovieDetailsContract.View {
+
+    private val movieDetailsContract: MovieDetailsContract.Presenter = MovieDetailsPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,24 +20,13 @@ class MovieDetails : AppCompatActivity() {
         val moviePoster = intent.getStringExtra("movie_poster")
         val movieRating = intent.getStringExtra("movie_rating")
 
+        movieDetailsContract.attachView(this)
+        release_detail.text = movieDetailsContract.loadDate(movieRelease)
+
 
         title_detail.text = movieTitle
         language_detail.text = movieLanguage
         rating_detail.text = movieRating
-
-        val mRelease = movieRelease
-        val rel = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-        var date: Date? = null
-        try {
-            date = rel.parse(mRelease)
-        } catch (e: ParseException) {
-            e.printStackTrace()
-        }
-        val fmtOut = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
-        val mReleaseDate = fmtOut.format(date)
-
-        release_detail.text = mReleaseDate
-
 
         overview_detail.text = movieOverview
 

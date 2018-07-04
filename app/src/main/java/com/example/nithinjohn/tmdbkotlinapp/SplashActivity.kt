@@ -6,12 +6,12 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.content.ContextCompat
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 
-class LoaderScreen : Activity() {
-
+class SplashActivity : Activity(){
     internal var check = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,10 +21,10 @@ class LoaderScreen : Activity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_loader_screen)
 
-        loadPage()
+        loadScreen()
     }
 
-    protected fun loadPage() {
+    private fun loadScreen(){
         val handler = Handler()
         handler.postDelayed(object : Runnable {
             override fun run() {
@@ -36,8 +36,8 @@ class LoaderScreen : Activity() {
 
                 } else {
                     runOnUiThread {
-                        val `in` = Intent(this@LoaderScreen, MainActivity::class.java)
-                        startActivity(`in`)
+                        val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                        startActivity(intent)
                         check = false
                     }
                 }
@@ -50,23 +50,24 @@ class LoaderScreen : Activity() {
         }, 2000)
     }
 
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
+    }
+
     //Handling onRestart
     override fun onRestart() {
-        loadPage()
+        loadScreen()
         super.onRestart()
 
     }
 
     //Handling onResume
     override fun onResume() {
-        loadPage()
+        loadScreen()
         super.onResume()
     }
 
-    private fun isNetworkAvailable(): Boolean {
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected
-    }
 
 }

@@ -6,23 +6,18 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import android.widget.Toast
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainActivityContract.View {
 
-    var pageNumber: Int = 1
-    private var lastPress: Long = 0
-    var moviesinformation = ArrayList<MovieList.MovieNames>()
-    var loading = true
     var visibleThreshold = 2
     var lastVisibleItem = 0
     var totalItemCount = 0
+
+    private val mainActivityContract: MainActivityContract.Presenter = MainActivityPresenter()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,9 +25,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         Fabric.with(this, Crashlytics())
 
-        getPopular()
 
-        fab.setOnClickListener { v: View? ->
+        mainActivityContract.attachView(this)
+        mainActivityContract.loadPage()
+
+        fab.setOnClickListener {
             recyclerview_main.scrollToPosition(0)
             fab.hide()
         }
@@ -48,8 +45,7 @@ class MainActivity : AppCompatActivity() {
                     lastVisibleItem = (recyclerview_main.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
 
                     if (totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-                        pageNumber++
-                        loadMore()
+                        mainActivityContract.loadPageMore()
                     }
 
                 } else if (dy < 0) {
@@ -59,70 +55,32 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
+    }
 
+    override fun showPage(moviesinformation: ArrayList<MovieList.MovieNames>) {
+        val adapter = MainAdapter(this@MainActivity, moviesinformation)
+        recyclerview_main.adapter = adapter
+        recyclerview_main.layoutManager = GridLayoutManager(this@MainActivity, 2)
+    }
+
+    override fun showPageMore(moviesinformation: ArrayList<MovieList.MovieNames>, movieData: ArrayList<MovieList.MovieNames>) {
+        moviesinformation.addAll(movieData)
+        recyclerview_main.adapter.notifyDataSetChanged()
     }
 
     //Double tap on back button to exit
     override fun onBackPressed() {
-        val currentTime = System.currentTimeMillis()
-        if (currentTime - lastPress > 5000) {
-            val backpressToast: Toast? = Toast.makeText(baseContext, "Press back again to exit", Toast.LENGTH_LONG)
-            backpressToast?.show()
-            lastPress = currentTime
-
-        } else {
+        if (!mainActivityContract.handleBackPress()) {
             super.onBackPressed()
             //Exit Application on back press instead of moving to the first Activity
             val intent = Intent(Intent.ACTION_MAIN)
             intent.addCategory(Intent.CATEGORY_HOME)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
+        } else {
+            val backpressToast: Toast? = Toast.makeText(baseContext, "Press back again to exit", Toast.LENGTH_LONG)
+            backpressToast?.show()
         }
-    }
-
-    private fun getPopular() {
-        val api = InitRetrofit().getInitInstance()
-        val call = api.request_popular(PathFiles.API_KEY, pageNumber)
-        call.enqueue(object : Callback<MovieList> {
-
-            override fun onFailure(call: Call<MovieList>?, t: Throwable?) {
-
-            }
-
-            override fun onResponse(call: Call<MovieList>?, response: retrofit2.Response<MovieList>?) {
-                if (response != null) {
-                    if (response.isSuccessful) {
-                        moviesinformation = response.body()?.data!!
-                        val adapter = MainAdapter(this@MainActivity, moviesinformation)
-                        recyclerview_main.adapter = adapter
-                        recyclerview_main.layoutManager = GridLayoutManager(this@MainActivity, 2)
-                    }
-                }
-            }
-
-        })
-    }
-
-    private fun loadMore() {
-        val api = InitRetrofit().getInitInstance()
-        val call = api.request_popular(PathFiles.API_KEY, pageNumber)
-        call.enqueue(object : Callback<MovieList> {
-
-            override fun onFailure(call: Call<MovieList>?, t: Throwable?) {
-
-            }
-
-            override fun onResponse(call: Call<MovieList>?, response: retrofit2.Response<MovieList>?) {
-                if (response != null) {
-                    if (response.isSuccessful) {
-                        val d1 = response.body()?.data!!
-                        moviesinformation.addAll(d1)
-                        recyclerview_main.adapter.notifyDataSetChanged()
-                    }
-                }
-            }
-
-        })
     }
 
 
